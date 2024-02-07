@@ -1,16 +1,19 @@
 {
-  "name": "optica_backend",
+  "name": "jscop-backend",
   "version": "1.0.0",
-  "description": "A backend for optica website & some admin usage",
+  "description": "A backend to serve all api calls for jscop website ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Aryan",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AryanAg08/Optica_Backend.git"
+  },
+  "author": "AryaAg",
   "license": "ISC",
-  "dependencies": {
-    "dotenv": "^16.4.1",
-    "express": "^4.18.2",
-    "mongoose": "^8.1.1"
-  }
+  "bugs": {
+    "url": "https://github.com/AryanAg08/Optica_Backend/issues"
+  },
+  "homepage": "https://github.com/AryanAg08/Optica_Backend#readme"
 }
