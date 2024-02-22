@@ -23,7 +23,7 @@ module.exports.login = async (req, res) => {
 
 
 module.exports.register = async (req, res) => {
-    let { name, email, phoneNo, batch, enrollmentNo, branch } = req.body;
+    let { name, email, phoneNo, batch, enrollmentNo, branch , password} = req.body;
     email = email.toLowerCase();
     const registeredEmail = await User.findOne({email: email});
 

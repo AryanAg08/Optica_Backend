@@ -1,5 +1,6 @@
 const qrCode = require('../models/qrCodeModel');
 const User = require('../models/adminModel');
+const generalUsers = require('../models/userModel');
 const sendMail = require('../utils/mailSender');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -8,8 +9,11 @@ const bcrypt = require('bcryptjs');
 
 // Home
 module.exports.adminHome = async (req, res) => {
-    res.render('adminHome');
+    const users = await generalUsers.find({});
+    res.render('admins/index', { users });
 }
+
+
 
 
 // Login

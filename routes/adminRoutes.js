@@ -16,7 +16,7 @@ router.route('/adminlogout')
     .get(catchAsync(admin.adminlogout));
 
 
-router.route('/adminHome')
+router.route('/home')
     .get(isAdmin, catchAsync(admin.adminHome));
 
 router.route('/sendOTP/:ticketid')
