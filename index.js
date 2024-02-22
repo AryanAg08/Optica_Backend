@@ -9,6 +9,7 @@ const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const dbURL = process.env.mongo;
 const bodyParser = require('body-parser');
+const port = process.env.PORT || 4000;
 mongoose.connect(dbURL);
 
 
@@ -57,6 +58,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json({ message });
 });
 
-app.listen(4000, () => {
-    console.log('Server is running on port 4000')
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
 })
