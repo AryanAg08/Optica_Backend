@@ -19,11 +19,5 @@ router.route('/adminlogout')
 router.route('/home')
     .get(isAdmin, catchAsync(admin.adminHome));
 
-router.route('/sendOTP/:ticketid')
-    .get(isAdmin, catchAsync(admin.renderOTP))
-    .post(isAdmin, catchAsync(admin.sendOTP));
-
-router.route('/verifyOTP')
-    .post(isAdmin, catchAsync(admin.validateTicket));
 
 module.exports = router;
