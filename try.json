@@ -1,8 +1,8 @@
  {
-    "Name": "Aryan",
-    "Email": "goyalaryan51@gmail.com",
-    "PhoneNo": "9928590499",
-    "Batch": "B4",
-    "Enrollment": "22103092",
-    "Branch": "CSE"
+    "name": "Aryan",
+    "email": "goyalaryan51@gmail.com",
+    "phoneNo": "9928590499",
+    "batch": "B4",
+    "enrollment": "22103092",
+    "branch": "CSE"
  }
