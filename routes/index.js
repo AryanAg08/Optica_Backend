@@ -25,7 +25,7 @@ router.post("/register-new", async (req, res) => {
         })
       }
       else {
-       return  console.log("Unable to verify the email!!");
+       return  console("Unable to verify the email!!");
       }
      
 });
