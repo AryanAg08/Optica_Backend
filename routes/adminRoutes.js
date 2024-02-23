@@ -15,7 +15,6 @@ router.route('/adminregister')
 router.route('/adminlogout')
     .get(catchAsync(admin.adminlogout));
 
-
 router.route('/home')
     .get(isAdmin, catchAsync(admin.adminHome));
 

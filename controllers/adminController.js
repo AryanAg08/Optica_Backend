@@ -29,7 +29,7 @@ module.exports.adminlogin = async (req, res) => {
         const user = await User.findOne({ email: email});
         if(user && bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ id: user._id }, `${process.env.SECRET}`, { expiresIn: '3h' });
-            res.cookie('jwt', token, { signed: true, maxAge: 1000 * 60 * 60 }).json('login');
+            res.cookie('jwt', token, { signed: true, maxAge: 1000 * 60 * 60 }).redirect('/admin/home');
         } 
         else {
             res.status(400).json('login failed');
