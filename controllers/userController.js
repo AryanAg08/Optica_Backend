@@ -20,7 +20,6 @@ module.exports.login = async (req, res) => {
     }
 }
 
-
 module.exports.register = async (req, res) => {
     let { name, email, phoneNo, batch, enrollmentNo, branch , password} = req.body;
     email = email.toLowerCase();
@@ -59,6 +58,7 @@ module.exports.sendUserVerificationEmail = async (req, res) => {
     await sendVerificationEmail(user.email, user);
     return res.json('email sent');
 };
+
 
 const sendVerificationEmail = async (email,user) => {
     const secret = `${process.env.SECRET}`;
