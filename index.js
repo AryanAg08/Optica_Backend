@@ -24,15 +24,19 @@ app.set('views', path.join(__dirname,'views'))
 app.use(express.static(path.join(__dirname,'public')))
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cors({ origin: [`${process.env.ORIGIN}`, "https://secure-ticket-gen.vercel.app"], credentials: true}));
-app.use(cors({ origin: "*", credentials: true}));
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    })
+);
 app.use (cookieParser(process.env.SECRET));
 app.use(express.json());
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
-})
+});
 
 const general = require('./routes/qrRoutes');
 app.use('/', general); 
@@ -42,6 +46,9 @@ app.use('/user', userRoutes);
 
 const admin = require('./routes/adminRoutes');
 app.use('/admin', admin);
+
+const registerRoute = require("./routes/index");
+app.use("/api", registerRoute);
 
 
 app.get('/', (req, res) => {

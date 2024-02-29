@@ -12,7 +12,7 @@ const userSchema = new schema({
     email: { 
         type: String,
         required: true,
-        unique: true,
+        // unique: true,
         min: 6,
         max: 255,
 
@@ -39,12 +39,12 @@ const userSchema = new schema({
         required: true,
     },
 
-    password: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 1024,
-    },
+    // password: {
+    //     type: String,
+    //     required: true,
+    //     min: 2,
+    //     max: 1024,
+    // },
 
     verified: {
         type: Boolean,
