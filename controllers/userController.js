@@ -12,7 +12,6 @@ module.exports.login = async (req, res) => {
         const user = await User.findOne({ email: email});
         if(user && bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ id: user._id, username: user.username, email: user.email}, `${process.env.SECRET}`, { expiresIn: '1h' });
-            
             res.cookie('jwt', token, { signed: true,httpOnly: false, sameSite: 'none', maxAge: 1000 * 60 * 60,secure: true }).json('login');
         } 
         else {
@@ -20,7 +19,6 @@ module.exports.login = async (req, res) => {
         }
     }
 }
-
 
 module.exports.register = async (req, res) => {
     let { name, email, phoneNo, batch, enrollmentNo, branch , password} = req.body;
@@ -60,6 +58,7 @@ module.exports.sendUserVerificationEmail = async (req, res) => {
     await sendVerificationEmail(user.email, user);
     return res.json('email sent');
 };
+
 
 const sendVerificationEmail = async (email,user) => {
     const secret = `${process.env.SECRET}`;

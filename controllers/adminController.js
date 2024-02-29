@@ -13,7 +13,28 @@ module.exports.adminHome = async (req, res) => {
     res.render('admins/index', { users });
 }
 
+module.exports.allUsers = async (req, res) => {
+    const users = await generalUsers.find({});
+    res.json(users);
+}
 
+module.exports.getUser = async (req, res) => {
+    const { id } = req.params;
+    const user = await generalUsers.findById(id);
+    res.json(user);
+}
+
+module.exports.deleteUser = async (req, res) => {
+    const { id } = req.params;
+    await generalUsers.findByIdAndDelete(id);
+    res.json('User Deleted');
+}
+
+module.exports.searchUser = async (req, res) => {
+    const { name } = req.params;
+    const user = await generalUsers.findOne({ name: name });
+    res.json(user);
+}
 
 
 // Login
@@ -29,7 +50,7 @@ module.exports.adminlogin = async (req, res) => {
         const user = await User.findOne({ email: email});
         if(user && bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ id: user._id }, `${process.env.SECRET}`, { expiresIn: '3h' });
-            res.cookie('jwt', token, { signed: true, maxAge: 1000 * 60 * 60 }).json('login');
+            res.cookie('jwt', token, { signed: true, maxAge: 1000 * 60 * 60 }).redirect('/admin/home');
         } 
         else {
             res.status(400).json('login failed');
@@ -70,23 +91,39 @@ module.exports.adminlogout = (req, res) => {
 // Ticket Validation
 module.exports.validateTicket = async (req, res) => {
     const {ticketid} = req.params;
-    
-
     const ticketFound = await qrCode.findOne({ qr_id: ticketid });
+
     if (!ticketFound) {
-        return res.status(400).send('Invalid Ticket ID');
+        return res.status(400).json({
+            success: false,
+            message: 'Invalid Ticket ID',
+        });
+    }
+
+    if (ticketFound.redeemed_count >= 2) {
+        return res.status(400).json({
+            success: false,
+            message: 'Ticket already redeemed twice',
+        });
+    }
+
+    if(Date.now() - ticketFound.reedeemed_timestamp < 18*60*60*1000 ) {
+        return res.status(400).json({
+            success: false,
+            message: 'Ticket cannot be redeemed before 18 hours',
+        });
     }
 
     const user = await ticketFound.populate('user');
+
     if (!user) {
-        return res.status(400).send('User not found');
+        return res.status(400).json({
+            success: false,
+            message: 'User not found',
+        });
     }
 
     const email = user.user.email;
-
-    if (found.email !== email) {
-        return res.status(400).send('Invalid OTP');
-    }
 
     const qrCodeUser = await qrCode.findOne({ user: user.user._id });
     if (!qrCodeUser) {

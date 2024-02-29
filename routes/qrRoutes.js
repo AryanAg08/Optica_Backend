@@ -8,7 +8,7 @@ router.route('/generateQRCode')
 
 
 router.route('/getQRCode')
-    .post(catchAsync(general.getQRCode));
+    .post(isLoggedIn, catchAsync(general.getQRCode));
 
 
 // router.route('/validateUser')
