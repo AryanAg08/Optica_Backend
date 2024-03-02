@@ -43,6 +43,8 @@ app.use('/user', userRoutes);
 const admin = require('./routes/adminRoutes');
 app.use('/admin', admin);
 
+const mailRoute = require('./routes/mailRoutes');
+app.use('/sendMail', mailRoute);
 
 app.get('/', (req, res) => {
     res.render('home')
