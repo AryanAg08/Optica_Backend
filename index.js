@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const dbURL = process.env.mongo;
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 4000;
+const logger = require("morgan");
 mongoose.connect(dbURL);
 
 
@@ -23,7 +24,7 @@ app.set('views', path.join(__dirname,'views'))
 
 app.use(express.static(path.join(__dirname,'public')))
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(logger());
 app.use(
     cors({
         origin: "http://localhost:5173",
@@ -52,6 +53,7 @@ const mailRoute = require('./routes/mailRoutes');
 app.use('/sendMail', mailRoute);
 
 const registerRoute = require("./routes/index");
+const { log } = require('console');
 app.use("/api", registerRoute);
 
 

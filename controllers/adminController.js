@@ -14,7 +14,9 @@ module.exports.adminHome = async (req, res) => {
 }
 
 module.exports.allUsers = async (req, res) => {
+    console.log("hello world");
     const users = await generalUsers.find({});
+    console.log(users);
     res.json(users);
 }
 
@@ -43,7 +45,9 @@ module.exports.renderLogin = (req, res) => {
 }
 
 module.exports.adminlogin = async (req, res) => {
+    console.log("Admin Login");
     let { email, password } = req.body;
+    console.log(req.body);
     if(!email || !password) res.status(400).json('missing fields');
     else{
         email = email.toLowerCase();

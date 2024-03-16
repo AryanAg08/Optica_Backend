@@ -31,6 +31,7 @@ module.exports.isVerified = async (req, res, next) => {
 
 
 module.exports.isAdmin = async (req, res, next) => {
+    console.log("Admin Check!!");
     const token = req.signedCookies.jwt;
     if(token){
         const decoded = jwt.verify(token, `${process.env.SECRET}`);
