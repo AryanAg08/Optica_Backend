@@ -5,13 +5,13 @@ const schema = mongoose.Schema;
 const userSchema = new schema({
     name: {
         type: String,
-        required: true,
+        required: [true, 'Pass a Name'],
         min: 6,
     },
 
     email: { 
         type: String,
-        required: true,
+        required: [true, 'Pass an Email'],
         // unique: true,
         min: 6,
         max: 255,
@@ -50,6 +50,16 @@ const userSchema = new schema({
         type: Boolean,
         default: false,
     },
+    payment: {
+        public_id: {
+            type: String,
+            required: true,
+        },
+        url: {
+            type: String,
+            required: true
+        }
+    }
 
 });
 
