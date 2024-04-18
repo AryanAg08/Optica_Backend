@@ -44,11 +44,10 @@ const general = require('./routes/qrRoutes');
 app.use('/', general); 
 
 const userRoutes = require('./routes/userRoutes');
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 const admin = require('./routes/adminRoutes');
 app.use('/admin', admin);
-
 
 const mailRoute = require('./routes/mailRoutes');
 app.use('/sendMail', mailRoute);

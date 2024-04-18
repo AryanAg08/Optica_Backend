@@ -43,18 +43,18 @@ router.post("/register-new", async (req, res) => {
 });
 
 router.get("/verify", async (req, res) => {
- try {
-    const Users = await  new_user_model.find({
-        verified: false,
+  try {
+    const Users = await new_user_model.find({
+      verified: false,
     });
     if (Users.length < 1) {
-        return res.status(404).json({ msg: 'There are no unverified users' });
- }
- console.log(Users);
- res.json(Users);
-}catch (err) {
+      return res.status(404).json({ msg: "There are no unverified users" });
+    }
+    console.log(Users);
+    res.json(Users);
+  } catch (err) {
     console.log(err);
-}
+  }
 });
 
 router.get("/Verified-users", async (req, res) => {

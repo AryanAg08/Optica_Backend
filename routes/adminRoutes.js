@@ -5,35 +5,31 @@ const {isAdmin} = require('../middleware.js');
 
 
 router.route('/login')
-    .get(admin.renderLogin)
     .post(catchAsync(admin.adminlogin));
 
 router.route('/logout')
     .get(catchAsync(admin.adminlogout));
 
-router.route('/users')
-    .get(isAdmin, catchAsync(admin.allUsers));
+router.route('/allUsers')
+    .get(catchAsync(isAdmin), catchAsync(admin.getAllUsers));
 
-router.route('/users/:id')
+router.route('/user/:id')
     .get(isAdmin, catchAsync(admin.getUser))
     .delete(isAdmin, catchAsync(admin.deleteUser));
 
+// (same delete as above)
+// router.route('/delete/:id')
+//     .delete(isAdmin, catchAsync(admin.deleteUser));
+    
 router.route('/search/:name')
     .get(isAdmin, catchAsync(admin.searchUser));
-
-
-router.route('/delete/:id')
-    .delete(isAdmin, catchAsync(admin.deleteUser));
+    //this is by name only further we can do by email or enrollment number
 
 router.route('/verifyTicket/:ticketid')
     .post(isAdmin, catchAsync(admin.validateTicket));
 
-//temporarily added
-router.route('/home')
-    .get(isAdmin, catchAsync(admin.adminHome));
 
-router.route('/register')
-    .get(admin.renderRegister)
-    .post(catchAsync(admin.adminregister));
+
+
 
 module.exports = router;
