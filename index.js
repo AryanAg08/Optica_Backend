@@ -27,7 +27,6 @@ app.use(
     })
 );
 app.use (cookieParser(process.env.SECRET));
-// app.use(express.json());
 app.use(bodyParser.json({ limit: "2mb" }))
 
 app.use((req, res, next) => {
@@ -44,8 +43,6 @@ app.use('/sendMail', mailRoute);
 const registerRoute = require("./routes/userRoutes");
 const { log } = require('console');
 app.use("/api", registerRoute);
-
-
 
 
 app.all('*', (req, res, next) => {
