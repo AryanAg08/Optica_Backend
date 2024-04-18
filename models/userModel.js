@@ -43,6 +43,10 @@ const userSchema = new schema({
         type: Boolean,
         default: false,
     },
+    enrollmentType: {
+       type: String,
+       required: true,
+    },
     payment: {
         public_id: {
             type: String,
