@@ -26,7 +26,7 @@ const userSchema = new schema({
 
     batch: {
         type: String,
-        required: true,
+        required: false,
     },
 
     enrollmentNo: {
@@ -46,6 +46,10 @@ const userSchema = new schema({
     enrollmentType: {
        type: String,
        required: true,
+    },
+    college: {
+        type: String,
+        required: true,
     },
     payment: {
         public_id: {

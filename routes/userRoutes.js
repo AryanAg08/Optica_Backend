@@ -10,7 +10,7 @@ router.post("/register-new", async (req, res) => {
     console.log(req.body);
 
    // res.json({ code: 200, status: "Message Sent"});
-     const { name, email, phone, batch, enroll, enrollmentType, branch, image } = req.body;
+     const { name, email, phone, batch, enroll, enrollmentType, branch, college, image } = req.body;
      try {
         const result = await cloudinary.uploader.upload(image, {
             folder: "jscop",
@@ -25,6 +25,7 @@ router.post("/register-new", async (req, res) => {
             branch,
             enrollmentType,
             verified: false,
+            college,
             payment: {
                 public_id: result.public_id,
                 url: result.secure_url
