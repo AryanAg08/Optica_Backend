@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require('path');
 const ExpressError = require('./utils/ExpressError');
 const cookieParser = require('cookie-parser');
-const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const dbURL = process.env.mongo;
 const bodyParser = require('body-parser');
@@ -18,11 +17,7 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database'));
 
-app.engine('ejs',ejsMate)
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname,'views'))
 
-app.use(express.static(path.join(__dirname,'public')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger());
 app.use(
@@ -40,27 +35,17 @@ app.use((req, res, next) => {
     next();
 });
 
-const general = require('./routes/qrRoutes');
-app.use('/', general); 
-
-const userRoutes = require('./routes/userRoutes');
-app.use('/users', userRoutes);
-
 const admin = require('./routes/adminRoutes');
 app.use('/admin', admin);
 
 const mailRoute = require('./routes/mailRoutes');
 app.use('/sendMail', mailRoute);
 
-const registerRoute = require("./routes/index");
+const registerRoute = require("./routes/userRoutes");
 const { log } = require('console');
 app.use("/api", registerRoute);
 
 
-
-app.get('/', (req, res) => {
-    res.render('home')
-})
 
 
 app.all('*', (req, res, next) => {

@@ -14,8 +14,9 @@ module.exports.adminlogin = async (req, res) => {
         email = email.toLowerCase();
         const user = await User.findOne({ email: email});
         if(user && bcrypt.compareSync(password, user.password)) {
-            const token = jwt.sign({ id: user._id }, `${process.env.SECRET}`, { expiresIn: '3h' });
-            res.cookie('jwt', token, { signed: true, maxAge: 1000 * 60 * 60 }).redirect('/admin/home');
+            const token = jwt.sign({ id: user._id }, `${process.env.SECRET}`, { expiresIn: '5h' });
+            res.cookie('jwt', token, { signed: true, maxAge: 1000 * 60 * 60 });
+            res.status(200).json(user);
         } 
         else {
             res.status(400).json('login failed');
@@ -46,10 +47,39 @@ module.exports.deleteUser = async (req, res) => {
     res.json('User Deleted');
 }
 
+module.exports.updateUser = async (req, res) => {
+    res.json("user updated")
+}
+
 module.exports.searchUser = async (req, res) => {
     const { name } = req.params;
     const user = await generalUsers.findOne({ name: name });
     res.json(user);
+}
+
+//This verifies the unferified user
+module.exports.verifyUser = async (req, res) => {
+    const { userid } = req.params;
+    const user = await generalUsers.findById(userid);
+    if(!user){
+        return res.status(400).json('user not found');
+    }
+    else{
+        user.verified = true;
+        await user.save();
+        res.status(200).json("User Verified");
+    }
+}
+
+// this returns all the unverfied users
+module.exports.unverifiedUser = async (req, res) => {
+    const unverifedUser = generalUsers.find({verified: false})
+    res.status(200).send(unverifedUser)
+}
+
+module.exports.verifiedUser = async (req, res) => {
+    const verifedUser = generalUsers.find({verified: true})
+    res.status(200).send(verifedUser)
 }
 
 
@@ -107,7 +137,7 @@ module.exports.validateTicket = async (req, res) => {
 
     sendMail(email, 'Ticket Validated', `Your ticket has been validated successfully and redeemed ${qrCodeUser.redeemed_count} times.`);
     res.json("Ticket validated successfully");
-    
+
 }
 
 

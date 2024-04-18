@@ -1,36 +1,46 @@
-const router = require('express').Router();
-const user  = require('../controllers/userController.js');
-const catchAsync = require('../utils/CatchAsync.js');
-const { isLoggedIn } = require('../middleware.js');
+const router = require("express").Router();
+const new_user_model = require("../models/userModel");
+const cloudinary = require("../utils/cloudinary")
 
+router.get("/try", (req, res) => {
+    res.send("this is route");
+});
 
-router.route('/login')
-    .post(catchAsync(user.login));
-        
-router.route('/register')
-    .post(catchAsync(user.register));
+router.post("/register-new", async (req, res) => {
+    console.log(req.body);
 
-router.route('/sendverificationEmail/:userid')
-    .post(catchAsync(user.sendUserVerificationEmail));
+   // res.json({ code: 200, status: "Message Sent"});
+     const { name, email, phone, batch, enroll, branch, image } = req.body;
+     try {
+        const result = await cloudinary.uploader.upload(image, {
+            folder: "jscop",
+        });
 
-//verified itself on a page that opens after clicking the button in users mail (not required on the website)
-router.route('/verifyEmail/:userid/:token')
-    .get(catchAsync(user.verifyUser));
-
-
-router.route('/logout')
-    .get(catchAsync(user.logout));
-
-router.route('/forgotpassword')
-    .post(catchAsync(user.forgotPassword));
-
-//Reset itself on a page that opens after clicking the button in users mail (not required on the website)
-router.route('/resetpassword/:id/:token')
-    .post(catchAsync(user.resetPassword));
-
-
-router.route('/profile')
-    .get(isLoggedIn, catchAsync(user.profile));
-
+        const User_details = {
+            name,
+            email,
+            phoneNo: phone,
+            batch,
+            enrollmentNo: enroll,
+            branch,
+            payment: {
+                public_id: result.public_id,
+                url: result.secure_url
+            }
+         }
+        console.log(User_details);
+        const save_data = await new new_user_model(User_details).save().then(() => {
+           console.log("User data saved in the database!!");
+          
+       });
+        res.status(201).json({
+            success: true,
+          User_details
+        });
+     } catch (err) {
+        console.log(err);
+     }
+     
+});
 
 module.exports = router;

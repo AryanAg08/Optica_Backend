@@ -4,7 +4,6 @@ const catchAsync = require('../utils/CatchAsync.js');
 const { isAdmin } = require('../middleware.js');
 
 
-
 router.route('/')
     .post(isAdmin, catchAsync(mailSender.sendMail));
 
