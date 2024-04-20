@@ -61,12 +61,15 @@ module.exports.searchUser = async (req, res) => {
 //This verifies the unverified user
 module.exports.verifyUser = async (req, res) => {
     const { userid } = req.params;
-    const user = await generalUsers.findById(userid);
+    let user = await generalUsers.findById(userid);
     if (!user) {
         return res.status(400).json("user not found");
     } else {
-        user.verified = true;
-        await user.save();
+        user = await generalUsers.findByIdAndUpdate(userid, {
+            verified: true,
+        });
+        // console.log(user)
+        console.log("after save")
         res.status(200).json("User Verified");
     }
 };

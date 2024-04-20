@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 const admin = require("./routes/adminRoutes");
 app.use("/admin", admin);
 
+const volunteer = require("./routes/volunteerRoutes");
+app.use("/volunteer", volunteer);
+
 const mailRoute = require("./routes/mailRoutes");
 app.use("/sendMail", mailRoute);
 

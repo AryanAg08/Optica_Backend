@@ -1,6 +1,6 @@
 const volunteerData = [
     {
-        name: "Karthik",
+        name: "Kartik",
         email: "a@a.com",
         password: "1234",
     },

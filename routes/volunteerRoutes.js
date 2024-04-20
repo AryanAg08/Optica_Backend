@@ -15,3 +15,4 @@ router.route('/logout')
 router.route('/verifyTicket/:ticketid')
     .post(isVolunteer, catchAsync(admin.validateTicket));
 
+module.exports = router;
