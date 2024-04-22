@@ -23,20 +23,32 @@ const userSchema = new schema({
         required: true,
         min: 10,
     },
-
+    college: {
+        type: String,
+        required: true,
+    },
     batch: {
         type: String,
-        required: false,
+        required: function () {
+            return this.college === "JIIT-62" || this.college === "JIIT-128";
+        },
+        default: "NA",
     },
 
     enrollmentNo: {
         type: String,
-        required: false,
+        required: function () {
+            return this.college === "JIIT-62" || this.college === "JIIT-128";
+        },
+        default: "NA",
     },
 
     branch: {
         type: String,
-        required: false,
+        required: function () {
+            return this.college === "JIIT-62" || this.college === "JIIT-128";
+        },
+        default: "NA",
     },
 
     verified: {
@@ -45,12 +57,12 @@ const userSchema = new schema({
     },
     enrollmentType: {
        type: String,
-       required: false,
+       required: function () {
+        return this.college === "JIIT-62" || this.college === "JIIT-128";
     },
-    college: {
-        type: String,
-        required: true,
+       default: "NA"
     },
+   
     payment: {
         public_id: {
             type: String,
