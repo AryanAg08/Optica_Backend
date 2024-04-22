@@ -31,12 +31,12 @@ const userSchema = new schema({
 
     enrollmentNo: {
         type: String,
-        required: true,
+        required: false,
     },
 
     branch: {
         type: String,
-        required: true,
+        required: false,
     },
 
     verified: {
@@ -45,7 +45,7 @@ const userSchema = new schema({
     },
     enrollmentType: {
        type: String,
-       required: true,
+       required: false,
     },
     college: {
         type: String,
