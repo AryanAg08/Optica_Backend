@@ -9,7 +9,6 @@ router.get("/try", (req, res) => {
 router.post("/register-new", async (req, res) => {
     console.log(req.body);
 
-   // res.json({ code: 200, status: "Message Sent"});
      const { name, email, phone, batch, enroll, enrollmentType, branch, college, image } = req.body;
      try {
         const result = await cloudinary.uploader.upload(image, {
@@ -32,14 +31,14 @@ router.post("/register-new", async (req, res) => {
             }
          }
         console.log(User_details);
-        const save_data = await new new_user_model(User_details).save().then(() => {
+        await new new_user_model(User_details).save().then(() => {
            console.log("User data saved in the database!!");
-          
-       });
-        res.status(201).json({
+           res.status(201).json({
             success: true,
           User_details
         });
+       });
+        
      } catch (err) {
         console.log(err);
      }
