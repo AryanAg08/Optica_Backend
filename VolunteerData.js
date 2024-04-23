@@ -8,6 +8,11 @@ const volunteerData = [
         name: "Surya",
         email: "b@b.com",
         password: "123456",
+    },
+    {
+        name: "Aryan",
+        email: "test@gmail.com",
+        password: "1234",
     }
 ]
 

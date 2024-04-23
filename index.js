@@ -25,6 +25,10 @@ app.use(
             "http://localhost:5174",
             "http://localhost:4000",
             "https://temp-jscop-backend-74c1d15b652d.herokuapp.com",
+            "https://jscop.jiitopticachapter.com",
+            "http://143.244.136.203",
+            "https://jscop-6-0-frontend-bc8z.onrender.com",
+            "https://main--jscop6frontend.netlify.app",
         ],
         credentials: true,
     })
